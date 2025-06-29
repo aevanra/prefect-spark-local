@@ -1,0 +1,11 @@
+HOME_BUCKET = "aarmus-movie-bucket"
+INPUT_PATH = "input/data"
+OUTPUT_PATH = "output"
+
+S3A_WORK_DIR = f"s3a://{HOME_BUCKET}/working"
+S3A_DATA_DIR = f"s3a://{HOME_BUCKET}/{INPUT_PATH}"
+S3A_EXPORT_DIR = f"s3a://{HOME_BUCKET}/{OUTPUT_PATH}"
+
+WORK_DIR = f"s3://{HOME_BUCKET}/working"
+DATA_DIR = f"s3://{HOME_BUCKET}/{INPUT_PATH}"
+EXPORT_DIR = f"s3://{HOME_BUCKET}/{OUTPUT_PATH}"
