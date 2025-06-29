@@ -208,3 +208,6 @@ __marimo__/
 
 # Spark stuff
 **/artifacts/
+
+# Prefect stuff
+base_job_template.json
