@@ -1,0 +1,41 @@
+services:
+  spark-master:
+    image: bitnami/spark:4.0.0
+    container_name: spark-master
+    environment:
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - SPARK_MODE=master
+      - SPARK_DRIVER_MEMORY=4G
+      - SPARK_CONF_DIR=/opt/bitnami/spark/conf/custom
+    ports:
+      - "7077:7077"    # Spark cluster master port
+      - "8080:8080"    # Spark master web UI
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  spark-worker:
+    image: bitnami/spark:4.0.0
+    environment:
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://spark-master:7077
+      - SPARK_WORKER_CORES=2
+      - SPARK_WORKER_MEMORY=4G
+      - SPARK_DRIVER_MEMORY=4G
+      - SPARK_DRIVER_HOST=spark-master
+    depends_on:
+      - spark-master
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+
+  prefect-server:
+    image: prefecthq/prefect:3-latest
+    command: prefect server start --host 0.0.0.0
+    ports:
+      - "4200:4200"
+    restart: unless-stopped
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
