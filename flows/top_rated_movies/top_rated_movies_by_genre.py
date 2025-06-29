@@ -121,4 +121,4 @@ if __name__ == "__main__":
 
     finally:
         shutil.rmtree("./src")
-        shutil.rmtree
+        shutil.rmtree("./data")
