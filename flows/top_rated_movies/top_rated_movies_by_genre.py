@@ -68,6 +68,8 @@ def pipeline() -> None:
 
 
 if __name__ == "__main__":
+    # TODO: I can probably change this pull and build logic to instead use volumes on the default worker pool,
+    #       but I haven't gotten around to testing that yet.
     with contextlib.suppress(FileExistsError):
         shutil.copytree("../../src/", "./src", True)
     with contextlib.suppress(FileExistsError):
